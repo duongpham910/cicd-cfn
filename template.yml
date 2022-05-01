@@ -8,7 +8,7 @@ Resources:
       SecurityGroups:
         - !Ref InstanceSecurityGroup
       # Change this, as applicable to you
-      KeyName: duong-udacity-west
+      KeyName: duong-udacity-ed25519
       # Ubuntu Server 22.04 LTS
       ImageId: 'ami-0dc5e9ff792ec08e3'
       InstanceType: t3.micro
