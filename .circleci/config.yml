@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["66:73:95:29:53:2e:92:09:c4:a6:a3:04:40:a0:40:98"] # duong-udacity-west
+          fingerprints: ["66:73:95:29:53:2e:92:09:c4:a6:a3:04:40:a0:40:98"] # duong-udacity-ed25519
       - run:
           name: Install dependencies
           command: |
@@ -32,10 +32,28 @@ jobs:
           name: Configure server
           command: |
             ansible-playbook -i inventory.txt main.yml
+  # Exercise: Smoke Testing
+  smoke_test:
+    docker:
+      - image: alpine:latest
+    steps:
+      - run: apk add --update curl
+      - run:
+       name: smoke test
+       command: |
+          URL="https://blog.udacity.com/"
+          # Test if website exists
+          if curl -s --head ${URL}
+          then
+            return 0
+          else
+            return 1
+          fi
 # Sequential workflow
 workflows:
 
   myWorkflow:
     jobs:
       # - create_infrastructure
-      - configure_infrastructure
+      # - configure_infrastructure
+      - smoke_test
