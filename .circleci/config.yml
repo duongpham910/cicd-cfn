@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["ba:d9:76:f6:40:63:4c:24:53:05:7c:d9:55:ef:02:73"] # You can get this ID in the section where you registered the SSH Key
+          fingerprints: ["ba:d9:76:f6:40:63:4c:24:53:05:7c:d9:55:ef:02:73"] # duong-udacity-west
       - run:
           name: Install dependencies
           command: |
