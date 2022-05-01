@@ -5,7 +5,7 @@ commands:
    # Exercise - Rollback
    destroy_environment:
      steps:
-       - run:
+        - run:
            name: Destroy environment
            # ${CIRCLE_WORKFLOW_ID} is a Built-in environment variable
            # ${CIRCLE_WORKFLOW_ID:0:5} takes the first 5 chars of the variable CIRCLE_CI_WORKFLOW_ID
@@ -28,6 +28,9 @@ jobs:
               --template-file template.yml \
               --stack-name myStack-${CIRCLE_WORKFLOW_ID:0:5} \
               --region us-west-1
+      - run: return 1
+      - destroy_environment
+
   # Exercise: Config and Deployment
   configure_infrastructure:
     docker:
@@ -47,18 +50,29 @@ jobs:
   # Exercise: Smoke Testing
   smoke_test:
     docker:
-      - image: amazon/aws-cli
+      - image: alpine:latest
     steps:
       - run:
+          name: Install curl
+          command: |
+            apk add --update curl
+      - run:
           name: smoke test
-          command: return 1
-      - destroy_environment
+          command: |
+            URL="https://blog.udacity.com/"
+            # Test if website exists
+            if curl -s --head ${URL}
+            then
+              return 0
+            else
+              return 1
+            fi
 
 # Sequential workflow
 workflows:
 
   myWorkflow:
     jobs:
-      # - create_infrastructure
+      - create_infrastructure
       # - configure_infrastructure
-      - smoke_test
+      # - smoke_test
