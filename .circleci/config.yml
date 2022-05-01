@@ -23,7 +23,7 @@ jobs:
     steps:
       - checkout
       - add_ssh_keys:
-          fingerprints: ["ba:d9:76:f6:40:63:4c:24:53:05:7c:d9:55:ef:02:73"] # duong-udacity-west
+          fingerprints: ["66:73:95:29:53:2e:92:09:c4:a6:a3:04:40:a0:40:98"] # duong-udacity-west
       - run:
           name: Install dependencies
           command: |
@@ -37,5 +37,5 @@ workflows:
 
   myWorkflow:
     jobs:
-      - create_infrastructure
-      # - configure_infrastructure
+      # - create_infrastructure
+      - configure_infrastructure
