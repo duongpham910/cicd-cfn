@@ -1,4 +1,6 @@
 version: 2.1
+# Pls update AWS_ACCESS_KEY_ID; AWS_SECRET_ACCESS_KEY; AWS_SESSION_TOKEN
+# For rebuild
 orbs:
   aws-cli: circleci/aws-cli@2.0.3
 jobs:
